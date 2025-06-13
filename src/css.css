@@ -1,0 +1,426 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "微軟正黑體", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+
+/*註冊頁面*/
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(93, 94, 93, 0.869);
+}
+/*註冊頁面輸入框*/
+.register-inputbox-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 30vw;
+  height: 30vh;
+  background-color: rgba(69, 70, 69, 0.849);
+}
+.register-inputbox-container input {
+  width: 80%;
+  height: 50px;
+  font-size: 25px;
+  text-align: center;
+}
+.register-button-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.register-button-container button {
+  width: 150px;
+  height: 40px;
+  margin-top: 30px;
+  font-size: 20px;
+  border: none;
+}
+
+.register button:hover {
+  background-color: rgb(158, 155, 155);
+}
+.register button:active {
+  background-color: rgb(121, 119, 119);
+}
+
+/*登入頁面*/
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(93, 94, 93, 0.869);
+}
+/*註冊頁面輸入框*/
+.login-inputbox-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 30vw;
+  height: 30vh;
+  background-color: rgba(69, 70, 69, 0.849);
+}
+.login-inputbox-container input {
+  width: 80%;
+  height: 50px;
+  font-size: 25px;
+  text-align: center;
+}
+.login-button-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-button-container button {
+  width: 150px;
+  height: 40px;
+  margin-top: 30px;
+  font-size: 20px;
+  border: none;
+}
+
+.login button:hover {
+  background-color: rgb(158, 155, 155);
+}
+.login button:active {
+  background-color: rgb(121, 119, 119);
+}
+
+/*頂部*/
+.header-container {
+  width: 100vw;
+  height: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  background-color: #444343;
+}
+
+.header-strip {
+  margin-top: 15px;
+  width: 99vw;
+  height: 60px;
+  border-radius: 15px;
+  background-color: #a8a3a3;
+  padding-top: 5px;
+  display: flex;
+}
+
+.back-container {
+  width: 30vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.back-container button {
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+}
+
+.back-container button:hover {
+  background-color: rgb(194, 193, 193);
+  cursor: pointer;
+}
+
+.title-container {
+  width: 40vw;
+  text-align: center;
+}
+
+.auth-container {
+  width: 30vw;
+  text-align: end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+}
+.auth-container button {
+  margin: 5px;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+}
+
+.auth-container button:hover {
+  background-color: rgb(194, 193, 193);
+  cursor: pointer;
+}
+
+/*註冊登入容器*/
+.auth-container {
+  width: 30vw;
+}
+
+/*底部*/
+.footer-container {
+  width: 100vw;
+  height: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #444343;
+}
+
+.footer-strip {
+  margin-bottom: 10px;
+  width: 99vw;
+  height: 15px;
+  border-radius: 15px;
+  background-color: #a8a3a3;
+}
+
+/*首頁*/
+.chatroom-home {
+  width: 100vw;
+  height: 90vh;
+  background-color: #444343;
+  display: flex;
+  align-items: center;
+}
+/*聊天室清單-左*/
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1vw;
+  margin-left: 1vw;
+  width: 18vw;
+  height: 87vh;
+  background-color: #e9edf3;
+  border-radius: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-bottom: 1px solid rgb(196, 195, 195);
+}
+.chat-list::-webkit-scrollbar {
+  display: none;
+}
+/*聊天室清單容器*/
+.chat-list-item {
+  text-align: center;
+  margin: 10px auto 0 auto;
+  margin-top: 10px;
+  padding-top: 15px;
+  width: 80%;
+  height: 10vh;
+  background-color: rgba(193, 190, 190, 0.487);
+  border-radius: 10px;
+  cursor: pointer;
+  color: #333333;
+  flex-shrink: 0;
+}
+
+.chat-list-item:hover {
+  background-color: rgba(155, 153, 153, 0.487);
+}
+
+.chat-list-item:active {
+  background-color: rgba(104, 103, 103, 0.487);
+}
+.chat-list > div:first-of-type {
+  text-align: center;
+  margin: 10px auto 0 auto;
+  width: 100%;
+}
+
+.chat-list-container button {
+  margin: 10px auto 0 auto;
+  width: 90%;
+  height: 5vh;
+  font-size: 20px;
+  border-radius: 10px;
+  color: #333333;
+}
+.chat-list button:hover {
+  background-color: rgba(131, 130, 130, 0.487);
+}
+
+/*創建群組彈跳視窗*/
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 25vw;
+  height: 30vh;
+  background-color: rgba(193, 190, 190);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  border: 1px solid black;
+}
+.modal-container input {
+  margin-top: 30px;
+  width: 50%;
+  height: 15%;
+  text-align: center;
+  font-size: 20px;
+  border: none;
+}
+.modal-button-container {
+  display: flex;
+  width: 60%;
+}
+
+.modal-button-container button {
+  margin: 30px;
+  border: none;
+}
+/*沒登入的群組介面*/
+.guestlayout-container {
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1vw;
+  margin-left: 1vw;
+  width: 18vw;
+  height: 87vh;
+  background-color: #e9edf3;
+  border-radius: 10px;
+  border-bottom: 1px solid rgb(196, 195, 195);
+}
+
+/*聊天室訊息-中*/
+.message {
+  width: 53vw;
+  height: 78vh;
+  background-color: #ffffff;
+  border: 1px solid rgb(196, 195, 195);
+  overflow-wrap: break-word;
+  overflow: auto;
+  align-self: flex-end;
+}
+
+/*聊天訊息*/
+.message-container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.justify-end {
+  align-items: flex-end;
+}
+.justify-start {
+  align-items: flex-start;
+}
+
+.message-content {
+  width: auto;
+  min-width: 15vw;
+  max-width: 30vw;
+}
+/*訊息本體*/
+.message-body {
+  margin-top: 10px;
+  margin-right: 30px;
+  margin-left: 30px;
+  background-color: #dcf8c6;
+  border-radius: 20px;
+  color: #333333;
+  text-align: left;
+  padding: 10px;
+}
+/*收回按鈕*/
+.message-actions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/*收回彈窗*/
+.recallmodel-container {
+  width: 300px;
+  height: 200px;
+  background-color: rgb(190, 187, 187);
+  border: 1px solid black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.recallmodel-container button {
+  width: 60px;
+  height: 40px;
+  margin: 30px;
+  font-size: 20px;
+}
+
+/*聊天室輸入框*/
+.message-input-container {
+  width: 53vw;
+  height: 10vh;
+  background-color: rgb(255, 255, 255);
+  border-left: 1px solid rgb(196, 195, 195);
+  border-right: 1px solid rgb(196, 195, 195);
+  border-bottom: 1px solid rgb(196, 195, 195);
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 30px;
+}
+
+.input-wrapper input {
+  margin-right: 10px;
+  border-radius: 10px;
+  width: 80%;
+  height: 5vh;
+  outline: none;
+  font-size: 50px;
+  border: 1px solid #d1d5db;
+}
+
+.input-wrapper button {
+  border-radius: 10px;
+  width: 20%;
+  height: 5vh;
+  background-color: #8c929c;
+  font-size: 30px;
+  color: #333333;
+  border: none;
+}
+
+/*聊天室使用者-右*/
+.user-list {
+  width: 25vw;
+  margin-left: 1vw;
+  margin-right: vw;
+  height: 87vh;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgb(196, 195, 195);
+  border-top: 1px solid rgb(196, 195, 195);
+}
