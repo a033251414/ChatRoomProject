@@ -34,7 +34,10 @@ const Register = () => {
         if (password !== conirmPassword) {
           alert("密碼不一致");
         } else {
-          const response = await axios.post("http://localhost:5182/api/user", { UserName: userName, Password: password });
+          const response = await axios.post("http://localhost:5182/api/user", {
+            UserName: userName,
+            Password: password,
+          });
           localStorage.setItem("Token", response.data.token);
           alert("創建成功");
           navigate("/login");
@@ -53,9 +56,24 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-inputbox-container">
-        <input onChange={handleUserNameChange} value={userName} placeholder="輸入暱稱" type="text" />
-        <input onChange={handlePasswordChange} value={password} placeholder="輸入密碼" type="password" />
-        <input onChange={handleConirmPasswordChange} value={conirmPassword} placeholder="確認密碼" type="password" />
+        <input
+          onChange={handleUserNameChange}
+          value={userName}
+          placeholder="輸入暱稱"
+          type="text"
+        />
+        <input
+          onChange={handlePasswordChange}
+          value={password}
+          placeholder="輸入密碼"
+          type="password"
+        />
+        <input
+          onChange={handleConirmPasswordChange}
+          value={conirmPassword}
+          placeholder="確認密碼"
+          type="password"
+        />
         <div className="register-button-container">
           <button onClick={() => navigate("/")}>返回</button>
           <button onClick={handleSubmit}>創建帳號</button>

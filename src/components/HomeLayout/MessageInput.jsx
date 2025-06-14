@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-const MessageInput = ({ setRefreshMessage, userName, isLoggedIn }) => {
+const MessageInput = ({ userName, isLoggedIn, setRefreshMessage, /*雙向*/ sendMessage }) => {
   const [message, setMessage] = useState("");
   const GroupId = localStorage.getItem("GroupId");
   const handleInputMessage = (e) => {
@@ -8,15 +8,21 @@ const MessageInput = ({ setRefreshMessage, userName, isLoggedIn }) => {
   };
 
   //傳送訊息
-  const hanleEnterMessage = async () => {
+  const handleEnterMessage = async () => {
     try {
       if (message == "") {
         console.log("請勿傳空白字元");
       } else {
         console.log(userName);
-        setMessage("");
-        await axios.post("http://localhost:5182/api/messages", { groupId: GroupId, userId: userName, content: message });
+        console.log(userName, message);
         setRefreshMessage((prev) => !prev);
+        sendMessage(userName, message);
+        setMessage("");
+        await axios.post("https://charroom-backend.onrender.com/api/messages", {
+          groupId: GroupId,
+          userName: userName,
+          content: message,
+        });
 
         console.log("傳送訊息成功");
       }
@@ -30,7 +36,7 @@ const MessageInput = ({ setRefreshMessage, userName, isLoggedIn }) => {
       {isLoggedIn ? (
         <div className="input-wrapper">
           <input onChange={handleInputMessage} type="text" value={message} />
-          <button onClick={hanleEnterMessage}>送出</button>
+          <button onClick={handleEnterMessage}>送出</button>
         </div>
       ) : (
         <div></div>

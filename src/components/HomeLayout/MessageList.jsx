@@ -1,20 +1,23 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 
-const MessageList = ({ refreshMessage, groupChange, userName }) => {
+const MessageList = ({ groupChange, userName, refreshMessage, messages, setMessages }) => {
   //聊天室資訊
-  const [messages, setMessages] = useState([]);
+
   //用來指定訊息收回
   const [messageId, setMessageId] = useState("");
   const [RecallModelShow, setRecalModelShow] = useState(false);
   const bottomRef = useRef(null);
 
-  /*抓取群組聊天紀錄*/
+  /*抓取單一群組聊天紀錄*/
   useEffect(() => {
     const GroupId = localStorage.getItem("GroupId");
     const getGroupMessage = async () => {
       try {
-        const Group = await axios.get(`http://localhost:5182/api/messages/${GroupId}`);
+        const Group = await axios.get(
+          `https://charroom-backend.onrender.com/api/messages/${GroupId}`
+        );
+        console.log(Group.data);
         setMessages(Group.data);
       } catch (error) {
         console.log("抓取不到群組訊息", error);
@@ -22,7 +25,7 @@ const MessageList = ({ refreshMessage, groupChange, userName }) => {
     };
 
     getGroupMessage();
-  }, [refreshMessage, groupChange]);
+  }, [groupChange, refreshMessage]);
 
   //訊息更新時自動滑到底部
   useEffect(() => {
@@ -42,13 +45,19 @@ const MessageList = ({ refreshMessage, groupChange, userName }) => {
   //收回訊息
   const handleRecallMessage = async () => {
     try {
-      await axios.post("http://localhost:5182/api/messages/clear", JSON.stringify(messageId), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await axios.post(
+        "https://charroom-backend.onrender.com/api/messages/clear",
+        JSON.stringify(messageId),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setRecalModelShow((prev) => !prev);
-      setMessages((prevMessages) => prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg)));
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
+      );
       console.log("收回訊息成功");
     } catch (error) {
       console.log("收回訊息失敗", error);
@@ -58,20 +67,25 @@ const MessageList = ({ refreshMessage, groupChange, userName }) => {
   return (
     <div className="message">
       {messages.map((msg) => {
-        const isMe = userName === msg.userId;
+        const isMe = userName === msg.userName;
         return (
-          <div key={msg.id} className={`message-container ${isMe ? "justify-end" : "justify-start"}`}>
+          <div
+            key={msg.id}
+            className={`message-container ${isMe ? "justify-end" : "justify-start"}`}
+          >
             {msg.content == null ? (
               <div className="message-content">
-                <div className="message-body">{msg.userId}已收回訊息</div>
+                <div className="message-body">{msg.userName}已收回訊息</div>
               </div>
             ) : (
               <div className="message-content">
                 <div className="message-body">
-                  <div>{msg.userId}：</div>
+                  <div>{msg.userName}：</div>
                   <div>{msg.content}</div>
                 </div>
-                <div className="message-actions">{isMe && <button onClick={() => handleRecallModel(msg.id)}>收回訊息</button>}</div>
+                <div className="message-actions">
+                  {isMe && <button onClick={() => handleRecallModel(msg.id)}>收回訊息</button>}
+                </div>
               </div>
             )}
           </div>

@@ -7,13 +7,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}></Route>
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>
+      <Route path="/register" element={<Register />}></Route>
+      <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}></Route>
+    </Routes>
   );
 }
 

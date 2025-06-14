@@ -20,10 +20,16 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
 
   //創建聊天室
   const handleCreateGroup = async () => {
+    if (!createGroupName.trim()) {
+      alert("群組名稱不能為空");
+      return;
+    }
     try {
       await axios.post("http://localhost:5182/api/group", {
         groupName: createGroupName,
       });
+
+      setCreateGroupName("");
       setShowModal(false);
       setRefreshFlag((prev) => !prev);
       alert("群組創建成功");
@@ -33,11 +39,11 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
     }
   };
 
-  //抓取聊天室資料
+  //抓取群組資料
   useEffect(() => {
     const GroupListGet = async () => {
       try {
-        const GroupList = await axios.get("http://localhost:5182/api/group");
+        const GroupList = await axios.get("https://charroom-backend.onrender.com/api/group");
 
         setGroupList(GroupList.data);
       } catch (error) {
@@ -63,7 +69,11 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
             <button onClick={() => handleShowModal()}>創建群組</button>
           </div>
           {groupList.map((group) => (
-            <div onClick={() => handleClickGroup(group.id, group.groupName)} className="chat-list-item" key={group.id}>
+            <div
+              onClick={() => handleClickGroup(group.id, group.groupName)}
+              className="chat-list-item"
+              key={group.id}
+            >
               <h1>{group.groupName}</h1>
             </div>
           ))}
@@ -79,7 +89,13 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
         <div>
           <div className="modal-container">
             <label htmlFor="groupName">請輸入群組名稱</label>
-            <input onChange={handleChangeGroupName} type="text" id="groupName" placeholder="輸入群組名稱" />
+            <input
+              onChange={handleChangeGroupName}
+              type="text"
+              id="groupName"
+              placeholder="輸入群組名稱"
+              value={createGroupName}
+            />
             <div className="modal-button-container">
               <div></div>
               <button onClick={() => handleShowModal()}>關閉</button>
