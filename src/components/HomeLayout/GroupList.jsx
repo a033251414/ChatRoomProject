@@ -6,6 +6,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
   const [showModal, setShowModal] = useState(false);
   const [createGroupName, setCreateGroupName] = useState("");
   const [groupList, setGroupList] = useState([]);
+  //群組在創建完成後重新渲染
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const handleShowModal = () => {
@@ -25,7 +26,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
       return;
     }
     try {
-      await axios.post("http://localhost:5182/api/group", {
+      await axios.post("https://charroom-backend.onrender.com/api/group", {
         groupName: createGroupName,
       });
 
@@ -44,7 +45,6 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
     const GroupListGet = async () => {
       try {
         const GroupList = await axios.get("https://charroom-backend.onrender.com/api/group");
-
         setGroupList(GroupList.data);
       } catch (error) {
         console.error("抓取GroupList失敗", error);
@@ -62,7 +62,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
   };
 
   return (
-    <div className="chat-list-container">
+    <nav className="chat-list-container">
       {isLoggedIn ? (
         <div className="chat-list">
           <div>
@@ -79,9 +79,9 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
           ))}
         </div>
       ) : (
-        <div className="guestlayout-container">
+        <section className="guestlayout-container">
           請先<Link to="/login">登入</Link>
-        </div>
+        </section>
       )}
 
       {/*創建群組彈窗*/}
@@ -104,7 +104,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 

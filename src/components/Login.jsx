@@ -16,7 +16,7 @@ const Login = ({ setIsLoggedIn }) => {
   //登入
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:5182/api/user/login", {
+      const response = await axios.post("https://charroom-backend.onrender.com/api/user/login", {
         userName: userName,
         password: password,
       });

@@ -1,6 +1,6 @@
 import Grouplist from "./HomeLayout/GroupList";
 import MessageList from "./HomeLayout/MessageList";
-import UserList from "./HomeLayout/UserList";
+import MessageSearch from "./HomeLayout/MessageSearch";
 import MessageInput from "./HomeLayout/MessageInput";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   const navigate = useNavigate();
   //在輸入訊息後重新渲染
   const [refreshMessage, setRefreshMessage] = useState(false);
-  //在創建群組後後重新渲染
+  //變換聊天室用*取得群組ID
   const [groupChange, setGroupChange] = useState("");
   //群組名稱標題
   const [groupTitle, setGroupTitle] = useState("");
@@ -21,9 +21,13 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   const [userName, setUserName] = useState("");
   //抓取token保持登入中
   const token = localStorage.getItem("Token");
-  //雙向
+  //雙向通訊
   const [connection, setConnection] = useState(null);
+  //抓取的群組訊息
   const [messages, setMessages] = useState([]);
+  const [currentGroupId, setCurrentGroupId] = useState(null);
+  //回覆訊息
+  const [replyMessage, setReplyMessage] = useState(null);
 
   //抓取user資料
   useEffect(() => {
@@ -56,6 +60,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
     setIsLoggedIn(false);
     setGroupChange("");
     setGroupTitle("");
+    setMessages([]);
   };
   /*返回首頁*/
   const handleBackHome = () => {
@@ -73,7 +78,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
 
     setConnection(newConnection);
   }, []);
-
+  //啟動SignalR 並接收訊息
   useEffect(() => {
     if (connection) {
       connection
@@ -81,23 +86,46 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
         .then(() => {
           console.log("Connected to SignalR hub");
 
-          connection.on("ReceiveMessage", (userName, message) => {
-            setMessages((prev) => [...prev, { userName: userName, content: message }]);
+          connection.on("ReceiveMessage", (message) => {
+            setMessages((prev) => [...prev, message]);
           });
         })
         .catch((err) => console.error("SignalR Connection Error:", err));
     }
   }, [connection]);
 
-  const sendMessage = async (user, message) => {
+  // //切換SignalR群組
+  useEffect(() => {
+    const newGroupId = localStorage.getItem("GroupId");
+    if (connection && connection.state === "Connected" && newGroupId) {
+      const switchGroup = async () => {
+        if (currentGroupId && currentGroupId !== newGroupId) {
+          await connection.invoke("LeaveGroup", currentGroupId);
+          console.log(`離開群組：${currentGroupId}`);
+        }
+
+        await connection.invoke("JoinGroup", newGroupId);
+        console.log(`加入群組：${newGroupId}`);
+        setCurrentGroupId(newGroupId);
+      };
+
+      switchGroup();
+    }
+  }, [groupChange]);
+
+  const sendMessage = async (groupId, messageObj) => {
     if (connection && connection.state === "Connected") {
-      await connection.invoke("SendMessage", user, message);
+      try {
+        await connection.invoke("SendMessage", groupId, messageObj);
+      } catch (error) {
+        console.log("SignalR傳送錯誤", error);
+      }
     }
   };
 
   return (
     <div>
-      <div className="header-container">
+      <header className="header-container">
         <div className="header-strip">
           <div className="back-container">
             <button onClick={handleBackHome}>返回</button>
@@ -126,38 +154,44 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
             </div>
           )}
         </div>
-      </div>
+      </header>
 
-      <div className="chatroom-home">
-        <div>
+      <main className="chatroom-home">
+        <nav>
           <Grouplist
             setGroupChange={setGroupChange}
             setGroupTitle={setGroupTitle}
             isLoggedIn={isLoggedIn}
           />
-        </div>
-        <div>
+        </nav>
+        <section>
           <MessageList
             refreshMessage={refreshMessage}
             groupChange={groupChange}
             userName={userName}
             messages={messages}
             setMessages={setMessages}
+            setReplyMessage={setReplyMessage}
+            replyMessage={replyMessage}
           />
           <MessageInput
             userName={userName}
             isLoggedIn={isLoggedIn}
             setRefreshMessage={setRefreshMessage}
-            /*雙向*/ sendMessage={sendMessage}
+            setMessages={setMessages}
+            groupChange={groupChange}
+            sendMessage={sendMessage}
+            setReplyMessage={setReplyMessage}
+            replyMessage={replyMessage}
           />
-        </div>
-        <div>
-          <UserList />
-        </div>
-      </div>
-      <div className="footer-container">
+        </section>
+        <section>
+          <MessageSearch groupChange={groupChange} isLoggedIn={isLoggedIn} />
+        </section>
+      </main>
+      <footer className="footer-container">
         <div className="footer-strip"></div>
-      </div>
+      </footer>
     </div>
   );
 };

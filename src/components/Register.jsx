@@ -30,19 +30,19 @@ const Register = () => {
     try {
       if (!userName) {
         alert("請輸入使用者暱稱");
+      } else if (password.length < 6) {
+        alert("密碼至少6字元以上");
+      } else if (password !== conirmPassword) {
+        alert("密碼不一致");
       } else {
-        if (password !== conirmPassword) {
-          alert("密碼不一致");
-        } else {
-          const response = await axios.post("http://localhost:5182/api/user", {
-            UserName: userName,
-            Password: password,
-          });
-          localStorage.setItem("Token", response.data.token);
-          alert("創建成功");
-          navigate("/login");
-          console.log("創建成功");
-        }
+        const response = await axios.post("https://charroom-backend.onrender.com/api/user", {
+          UserName: userName,
+          Password: password,
+        });
+        localStorage.setItem("Token", response.data.token);
+        alert("創建成功");
+        navigate("/login");
+        console.log("創建成功");
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {

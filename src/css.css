@@ -19,6 +19,7 @@ body {
 }
 /*註冊頁面輸入框*/
 .register-inputbox-container {
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -32,7 +33,9 @@ body {
   width: 80%;
   height: 50px;
   font-size: 25px;
+  border-radius: 10px;
   text-align: center;
+  margin: 5px;
 }
 .register-button-container {
   width: 80%;
@@ -46,6 +49,7 @@ body {
   margin-top: 30px;
   font-size: 20px;
   border: none;
+  border-radius: 10px;
 }
 
 .register button:hover {
@@ -66,6 +70,7 @@ body {
 }
 /*註冊頁面輸入框*/
 .login-inputbox-container {
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -76,10 +81,12 @@ body {
   background-color: rgba(69, 70, 69, 0.849);
 }
 .login-inputbox-container input {
+  border-radius: 10px;
   width: 80%;
   height: 50px;
   font-size: 25px;
   text-align: center;
+  margin: 5px;
 }
 .login-button-container {
   width: 80%;
@@ -90,6 +97,7 @@ body {
 .login-button-container button {
   width: 150px;
   height: 40px;
+  border-radius: 10px;
   margin-top: 30px;
   font-size: 20px;
   border: none;
@@ -307,11 +315,15 @@ body {
 }
 
 /*聊天室訊息-中*/
-.message {
+.chat-container {
   width: 53vw;
   height: 78vh;
   background-color: #ffffff;
-  border: 1px solid rgb(196, 195, 195);
+}
+.message {
+  width: 53vw;
+  height: 73vh;
+  background-color: #ffffff;
   overflow-wrap: break-word;
   overflow: auto;
   align-self: flex-end;
@@ -336,13 +348,13 @@ body {
   min-width: 15vw;
   max-width: 30vw;
 }
+
 /*訊息本體*/
 .message-body {
-  margin-top: 10px;
   margin-right: 30px;
   margin-left: 30px;
   background-color: #dcf8c6;
-  border-radius: 20px;
+  border-radius: 10px;
   color: #333333;
   text-align: left;
   padding: 10px;
@@ -352,6 +364,7 @@ body {
   border: none;
   background: none;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 /*收回彈窗*/
@@ -382,6 +395,7 @@ body {
 .message-input-container {
   width: 53vw;
   height: 10vh;
+  border-top: 1px solid rgb(196, 195, 195);
   background-color: rgb(255, 255, 255);
   border-left: 1px solid rgb(196, 195, 195);
   border-right: 1px solid rgb(196, 195, 195);
@@ -399,7 +413,7 @@ body {
   width: 80%;
   height: 5vh;
   outline: none;
-  font-size: 50px;
+  font-size: 40px;
   border: 1px solid #d1d5db;
 }
 
@@ -413,8 +427,34 @@ body {
   border: none;
 }
 
-/*聊天室使用者-右*/
-.user-list {
+/*input回覆訊息區塊*/
+.reply-container {
+  width: 53vw;
+  height: 5vh;
+  background-color: #f3ecec;
+  position: relative;
+}
+.reply-container button {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+/*回覆訊息顯示*/
+.reply-messsage-container {
+  margin-right: 30px;
+  margin-left: 30px;
+  background-color: #bad6a4;
+  border-bottom: 1px solid rgb(144, 136, 136);
+  border-radius: 10px;
+  color: #333333;
+  text-align: left;
+  padding: 10px;
+}
+
+/*搜尋欄-右*/
+.search-bar-container {
   width: 25vw;
   margin-left: 1vw;
   margin-right: vw;
@@ -423,4 +463,67 @@ body {
   background-color: #ffffff;
   border-bottom: 1px solid rgb(196, 195, 195);
   border-top: 1px solid rgb(196, 195, 195);
+}
+
+.search-input-container {
+  position: relative;
+  width: 100%;
+
+  height: 10vh;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+.search-input-container input {
+  width: 95%;
+  padding: 10px 40px 10px 10px;
+  box-sizing: border-box;
+  height: 5vh;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 30px;
+  padding: 10px;
+}
+.search-input-container input {
+  outline: none;
+}
+.search-input-container button {
+  width: 20%;
+  height: 5vh;
+  position: absolute;
+  border-radius: 100px;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #adb6c7;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.message-search-container {
+  width: 100%;
+  height: 100%;
+}
+
+/*搜尋結果欄*/
+
+.search-results-container {
+  width: 100%;
+  height: 85%;
+  overflow-y: auto;
+}
+.search-results-container div {
+  margin: auto;
+  margin-top: 20px;
+  padding: 10px;
+  width: 95%;
+  border-radius: 10px;
+  background-color: #adb6c7;
+  font-size: 30px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
 }
