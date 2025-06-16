@@ -8,13 +8,6 @@ const Register = () => {
   const [conirmPassword, setConirmPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const isNickName = localStorage.getItem("NickName");
-    if (isNickName) {
-      navigate("/home");
-    }
-  }, []);
-
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
   };

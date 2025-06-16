@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+
 const MessageInput = ({
   userName,
   isLoggedIn,
@@ -9,7 +10,9 @@ const MessageInput = ({
   replyMessage,
   setReplyMessage,
 }) => {
+  //儲存當前要輸入的訊息
   const [message, setMessage] = useState("");
+
   const handleInputMessage = (e) => {
     setMessage(e.target.value);
   };
@@ -33,7 +36,7 @@ const MessageInput = ({
           content: message,
           replyToMessageId: replyMessage ? replyMessage.id : null,
         });
-        console.log(response.data);
+
         const messageData = response.data;
         await sendMessage(groupChange, messageData);
         setReplyMessage(null);

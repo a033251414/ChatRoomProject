@@ -14,7 +14,9 @@ const MessageList = ({
 
   //用來指定訊息收回
   const [messageId, setMessageId] = useState("");
+  //顯示收回訊息視窗
   const [RecallModelShow, setRecallModelShow] = useState(false);
+
   const bottomRef = useRef(null);
 
   /*抓取單一群組聊天紀錄*/
@@ -24,7 +26,6 @@ const MessageList = ({
         const Group = await axios.get(
           `https://charroom-backend.onrender.com/api/messages/${groupChange}`
         );
-        console.log(Group.data);
         setMessages(Group.data);
       } catch (error) {
         console.log("抓取不到群組訊息", error);
@@ -77,7 +78,6 @@ const MessageList = ({
         `https://charroom-backend.onrender.com/api/messages/single/${msgId}`
       );
       setReplyMessage(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log("取得訊息失敗", error);
     }

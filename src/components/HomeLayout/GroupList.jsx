@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
+  //顯示創建群組視窗
   const [showModal, setShowModal] = useState(false);
   const [createGroupName, setCreateGroupName] = useState("");
   const [groupList, setGroupList] = useState([]);
@@ -40,7 +41,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
     }
   };
 
-  //抓取群組資料
+  //抓取群組清單
   useEffect(() => {
     const GroupListGet = async () => {
       try {

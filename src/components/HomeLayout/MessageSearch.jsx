@@ -7,7 +7,7 @@ const MessageSearch = ({ groupChange, isLoggedIn }) => {
   const handleSearchText = (e) => {
     setSearchText(e.target.value);
   };
-
+  //傳入當前群組ID及搜尋訊息、回傳該群組查詢到的歷史訊息
   const handleSearchClick = async () => {
     const response = await axios.post(
       "https://charroom-backend.onrender.com/api/messages/searchingroup",
