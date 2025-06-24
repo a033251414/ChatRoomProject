@@ -71,7 +71,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   //雙向
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${BASE_URL}/chathub`)
+      .withUrl(`https://charroom-backend.onrender.com/chathub`)
       .withAutomaticReconnect()
       .build();
 
