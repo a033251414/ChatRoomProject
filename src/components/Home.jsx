@@ -94,7 +94,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
           //監聽收回訊息
           connection.on("ReceiveRecalledMessage", (messageId) => {
             setMessages((prevMessages) =>
-              prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
+              prevMessages.map((msg) => (msg.id == messageId ? { ...msg, content: null } : msg))
             );
           });
         })
@@ -121,6 +121,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
       switchGroup();
     }
   }, [groupChange]);
+
   //監聽訊息傳送
   const sendMessage = async (groupId, messageObj) => {
     if (connection && connection.state === "Connected") {
