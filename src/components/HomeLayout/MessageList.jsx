@@ -9,11 +9,11 @@ const MessageList = ({
   setMessages,
   setReplyMessage,
   replyMessage,
+  messageId,
+  setMessageId,
 }) => {
   //聊天室資訊
 
-  //用來指定訊息收回
-  const [messageId, setMessageId] = useState("");
   //顯示收回訊息視窗
   const [RecallModelShow, setRecallModelShow] = useState(false);
 
