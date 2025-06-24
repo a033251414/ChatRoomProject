@@ -94,7 +94,9 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
           //監聽收回訊息
           connection.on("ReceiveRecalledMessage", (messageId) => {
             setMessages((prevMessages) =>
-              prevMessages.map((msg) => (msg.id == messageId ? { ...msg, content: null } : msg))
+              prevMessages.map((msg) =>
+                String(msg.id) === String(messageId) ? { ...msg, content: null } : msg
+              )
             );
           });
         })
@@ -136,6 +138,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   const recallMessage = async (groupId, messageId) => {
     if (connection && connection.state === "Connected") {
       try {
+        console.log("[ReceiveRecalledMessage]", messageId);
         await connection.invoke("RecallMessage", groupId, messageId);
         console.log("已呼叫 RecallMessage");
       } catch (error) {

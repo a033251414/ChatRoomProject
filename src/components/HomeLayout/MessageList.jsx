@@ -33,7 +33,7 @@ const MessageList = ({
     };
 
     getGroupMessage();
-  }, [groupChange]);
+  }, [refreshMessage, groupChange]);
 
   //訊息更新時自動滑到底部
   useEffect(() => {
@@ -66,6 +66,7 @@ const MessageList = ({
       setMessages((prevMessages) =>
         prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
       );
+      console.log(groupChange, messageId);
       await recallMessage(groupChange, messageId);
       console.log("收回訊息成功");
     } catch (error) {
