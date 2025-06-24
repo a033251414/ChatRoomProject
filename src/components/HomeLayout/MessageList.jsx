@@ -57,6 +57,7 @@ const MessageList = ({
         },
       });
       setRecallModelShow((prev) => !prev);
+
       setMessages((prevMessages) =>
         prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
       );

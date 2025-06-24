@@ -85,7 +85,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
         .start()
         .then(() => {
           console.log("Connected to SignalR hub");
-
+          //監聽傳送訊息
           connection.on("ReceiveMessage", (message) => {
             setMessages((prev) => [...prev, message]);
           });
@@ -126,6 +126,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   const sendMessage = async (groupId, messageObj) => {
     if (connection && connection.state === "Connected") {
       try {
+        console.log("呼叫到sendMessage");
         await connection.invoke("SendMessage", groupId, messageObj);
       } catch (error) {
         console.log("SignalR傳送錯誤", error);
