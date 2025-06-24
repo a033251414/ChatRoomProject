@@ -28,8 +28,6 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   const [currentGroupId, setCurrentGroupId] = useState(null);
   //回覆訊息
   const [replyMessage, setReplyMessage] = useState(null);
-  //取得訊息ID
-  const [messageId, setMessageId] = useState("");
 
   //抓取user資料
   useEffect(() => {
@@ -123,13 +121,24 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
       switchGroup();
     }
   }, [groupChange]);
-
+  //監聽訊息傳送
   const sendMessage = async (groupId, messageObj) => {
     if (connection && connection.state === "Connected") {
       try {
         await connection.invoke("SendMessage", groupId, messageObj);
       } catch (error) {
         console.log("SignalR傳送錯誤", error);
+      }
+    }
+  };
+  //監聽訊息收回
+  const recallMessage = async (groupId, messageId) => {
+    if (connection && connection.state === "Connected") {
+      try {
+        await connection.invoke("RecallMessage", groupId, messageId);
+        console.log("已呼叫 RecallMessage");
+      } catch (error) {
+        console.error("呼叫 RecallMessage 失敗:", error);
       }
     }
   };
@@ -184,8 +193,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
             setMessages={setMessages}
             setReplyMessage={setReplyMessage}
             replyMessage={replyMessage}
-            messageId={messageId}
-            setMessageId={setMessageId}
+            recallMessage={recallMessage}
           />
           <MessageInput
             userName={userName}

@@ -9,10 +9,10 @@ const MessageList = ({
   setMessages,
   setReplyMessage,
   replyMessage,
-  messageId,
-  setMessageId,
+  recallMessage,
 }) => {
-  //聊天室資訊
+  //取得訊息ID
+  const [messageId, setMessageId] = useState("");
 
   //顯示收回訊息視窗
   const [RecallModelShow, setRecallModelShow] = useState(false);
@@ -66,6 +66,7 @@ const MessageList = ({
       setMessages((prevMessages) =>
         prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
       );
+      await recallMessage(groupChange, messageId);
       console.log("收回訊息成功");
     } catch (error) {
       console.log("收回訊息失敗", error);
