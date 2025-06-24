@@ -93,18 +93,10 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
 
           //監聽收回訊息
           connection.on("ReceiveRecalledMessage", (messageId) => {
-            console.log("[ReceiveRecalledMessage]", messageId);
-            setMessages((prevMessages) => {
-              const updatedMessages = prevMessages.map((msg) => {
-                console.log("比較:", {
-                  msgId: msg.id,
-                  receivedId: messageId,
-                  match: String(msg.id) === String(messageId),
-                });
-                return String(msg.id) === String(messageId) ? { ...msg, content: null } : msg;
-              });
-              return updatedMessages;
-            });
+            console.log("去你的");
+            setMessages((prevMessages) =>
+              prevMessages.map((msg) => (msg.id == messageId ? { ...msg, content: null } : msg))
+            );
           });
         })
 
