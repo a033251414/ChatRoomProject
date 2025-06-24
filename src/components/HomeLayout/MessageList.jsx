@@ -33,7 +33,7 @@ const MessageList = ({
     };
 
     getGroupMessage();
-  }, [refreshMessage, groupChange]);
+  }, [groupChange]);
 
   //訊息更新時自動滑到底部
   useEffect(() => {
