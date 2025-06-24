@@ -87,6 +87,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
           console.log("Connected to SignalR hub");
           //監聽傳送訊息
           connection.on("ReceiveMessage", (message) => {
+            console.log("監聽傳送訊息");
             setMessages((prev) => [...prev, message]);
           });
 
