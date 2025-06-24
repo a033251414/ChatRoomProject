@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-
+import { BASE_URL } from "../Api";
 const MessageInput = ({
   userName,
   isLoggedIn,
@@ -30,7 +30,7 @@ const MessageInput = ({
       if (message.length > 30) {
         alert("請入超過30字元");
       } else {
-        const response = await axios.post("https://charroom-backend.onrender.com/api/messages", {
+        const response = await axios.post(`${BASE_URL}/api/messages`, {
           groupId: groupChange,
           userName: userName,
           content: message,

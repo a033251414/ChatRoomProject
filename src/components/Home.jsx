@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { BASE_URL } from "./Api";
 //雙向
 import * as signalR from "@microsoft/signalr";
 
@@ -35,9 +36,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
       try {
         const decoded = jwtDecode(token);
         const userId = decoded.Id;
-        const response = await axios.get(
-          `https://charroom-backend.onrender.com/api/user/${userId}`
-        );
+        const response = await axios.get(`${BASE_URL}/api/user/${userId}`);
         setUserName(response.data.userName);
       } catch (error) {
         console.log("抓取不到user資料", error);
@@ -72,7 +71,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   //雙向
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://charroom-backend.onrender.com/chathub")
+      .withUrl(`${BASE_URL}/chathub`)
       .withAutomaticReconnect()
       .build();
 
@@ -93,6 +92,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
 
           //監聽收回訊息
           connection.on("ReceiveRecalledMessage", (messageId) => {
+            console.log("收回訊息監聽");
             setMessages((prevMessages) =>
               prevMessages.map((msg) => (msg.id == messageId ? { ...msg, content: null } : msg))
             );
@@ -136,7 +136,6 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
   const recallMessage = async (groupId, messageId) => {
     if (connection && connection.state === "Connected") {
       try {
-        console.log("[ReceiveRecalledMessage]", messageId);
         await connection.invoke("RecallMessage", groupId, messageId);
         console.log("已呼叫 RecallMessage");
       } catch (error) {

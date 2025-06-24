@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BASE_URL } from "./Api";
 const Register = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +28,7 @@ const Register = () => {
       } else if (password !== conirmPassword) {
         alert("密碼不一致");
       } else {
-        const response = await axios.post("https://charroom-backend.onrender.com/api/user", {
+        const response = await axios.post(`${BASE_URL}/api/user`, {
           UserName: userName,
           Password: password,
         });

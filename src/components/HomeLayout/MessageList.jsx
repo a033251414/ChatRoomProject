@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-
+import { BASE_URL } from "../Api";
 const MessageList = ({
   groupChange,
   userName,
@@ -23,9 +23,7 @@ const MessageList = ({
   useEffect(() => {
     const getGroupMessage = async () => {
       try {
-        const Group = await axios.get(
-          `https://charroom-backend.onrender.com/api/messages/${groupChange}`
-        );
+        const Group = await axios.get(`${BASE_URL}/api/messages/${groupChange}`);
         setMessages(Group.data);
       } catch (error) {
         console.log("抓取不到群組訊息", error);
@@ -53,20 +51,15 @@ const MessageList = ({
   //收回訊息
   const handleRecallMessage = async () => {
     try {
-      await axios.post(
-        "https://charroom-backend.onrender.com/api/messages/clear",
-        JSON.stringify(messageId),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await axios.post(`${BASE_URL}/api/messages/clear`, JSON.stringify(messageId), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       setRecallModelShow((prev) => !prev);
       setMessages((prevMessages) =>
         prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
       );
-      console.log(groupChange, messageId);
       await recallMessage(groupChange, messageId);
       console.log("收回訊息成功");
     } catch (error) {
@@ -76,9 +69,7 @@ const MessageList = ({
   //回覆訊息
   const handleReplyMessage = async (msgId) => {
     try {
-      const response = await axios.get(
-        `https://charroom-backend.onrender.com/api/messages/single/${msgId}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/messages/single/${msgId}`);
       setReplyMessage(response.data);
     } catch (error) {
       console.log("取得訊息失敗", error);

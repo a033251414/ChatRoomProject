@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { BASE_URL } from "../Api";
 const MessageSearch = ({ groupChange, isLoggedIn }) => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -9,13 +9,10 @@ const MessageSearch = ({ groupChange, isLoggedIn }) => {
   };
   //傳入當前群組ID及搜尋訊息、回傳該群組查詢到的歷史訊息
   const handleSearchClick = async () => {
-    const response = await axios.post(
-      "https://charroom-backend.onrender.com/api/messages/searchingroup",
-      {
-        groupId: groupChange,
-        keyword: searchText,
-      }
-    );
+    const response = await axios.post(`${BASE_URL}/api/messages/searchingroup`, {
+      groupId: groupChange,
+      keyword: searchText,
+    });
     setSearchResults(response.data);
   };
 

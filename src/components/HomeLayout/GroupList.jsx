@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../Api";
 
 const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
   //顯示創建群組視窗
@@ -27,7 +28,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
       return;
     }
     try {
-      await axios.post("https://charroom-backend.onrender.com/api/group", {
+      await axios.post(`${BASE_URL}/api/group`, {
         groupName: createGroupName,
       });
 
@@ -45,7 +46,7 @@ const Grouplist = ({ setGroupChange, setGroupTitle, isLoggedIn }) => {
   useEffect(() => {
     const GroupListGet = async () => {
       try {
-        const GroupList = await axios.get("https://charroom-backend.onrender.com/api/group");
+        const GroupList = await axios.get(`${BASE_URL}/api/group`);
         setGroupList(GroupList.data);
       } catch (error) {
         console.error("抓取GroupList失敗", error);

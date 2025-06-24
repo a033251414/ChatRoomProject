@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BASE_URL } from "./Api";
 const Login = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
@@ -17,7 +17,7 @@ const Login = ({ setIsLoggedIn }) => {
   //登入
   const handleLogin = async () => {
     try {
-      const response = await axios.post("https://charroom-backend.onrender.com/api/user/login", {
+      const response = await axios.post(`${BASE_URL}/api/user/login`, {
         userName: userName,
         password: password,
       });
