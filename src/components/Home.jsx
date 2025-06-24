@@ -81,7 +81,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
     setConnection(newConnection);
   }, []);
 
-  // 啟動 SignalR 並監聽訊息
+  //啟動SignalR 並接收訊息
   useEffect(() => {
     if (connection) {
       connection
@@ -89,18 +89,18 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
         .then(() => {
           console.log("Connected to SignalR hub");
 
-          // 1️⃣ 接收新訊息
           connection.on("ReceiveMessage", (message) => {
             setMessages((prev) => [...prev, message]);
           });
 
-          // 2️⃣ 接收收回訊息
+          //監聽收回訊息
           connection.on("ReceiveRecalledMessage", (messageId) => {
             setMessages((prevMessages) =>
               prevMessages.map((msg) => (msg.id === messageId ? { ...msg, content: null } : msg))
             );
           });
         })
+
         .catch((err) => console.error("SignalR Connection Error:", err));
     }
   }, [connection]);
