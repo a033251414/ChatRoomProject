@@ -62,11 +62,11 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
     setMessages([]);
   };
   /*返回首頁*/
-  const handleBackHome = () => {
-    localStorage.removeItem("GroupId");
-    setGroupChange("");
-    setGroupTitle("");
-  };
+  // const handleBackHome = () => {
+  //   localStorage.removeItem("GroupId");
+  //   setGroupChange("");
+  //   setGroupTitle("");
+  // };
 
   //雙向
   useEffect(() => {
@@ -151,7 +151,7 @@ const Home = ({ setIsLoggedIn, isLoggedIn }) => {
       <header className="header-container">
         <div className="header-strip">
           <div className="back-container">
-            <button onClick={handleBackHome}>返回</button>
+            {/* <button onClick={handleBackHome}>返回</button>*/}
           </div>
           <div className="title-container">{groupTitle}</div>
           {isLoggedIn ? (
