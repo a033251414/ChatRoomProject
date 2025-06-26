@@ -28,7 +28,7 @@ const MessageInput = ({
         console.log("請選擇群組後發話");
       }
       if (message.length > 30) {
-        alert("請入超過30字元");
+        alert("請勿超過30字元");
       } else {
         const response = await axios.post(`${BASE_URL}/api/messages`, {
           groupId: groupChange,
